@@ -145,8 +145,15 @@ cmd_push() {
   lpass show --sync=now --json "${scrt}"
 }
 
+cmd_version() {
+  echo "v1.1.0"
+}
+
 op="${1:-}"
 case "${op}" in
+version)
+  cmd_version "${@:2}"
+  ;;
 push)
   cmd_push "${@:2}"
   ;;

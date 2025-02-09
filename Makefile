@@ -1,12 +1,8 @@
-.PHONY: require-version release check fmt env
+.PHONY: release check fmt env
 
-require-version:
-ifndef VERSION
-	$(error argument "VERSION" is required)
-endif
-
-release: require-version
-	@gh release create "$(VERSION)" --title "Release $(VERSION)" --generate-notes
+release:
+	@VERSION=$$(nix develop --command secrets version) \
+		gh release create "$$VERSION" --title "Release $$VERSION" --generate-notes
 
 check:
 	@shellcheck -o all ./cli/main.sh
