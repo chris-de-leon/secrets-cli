@@ -6,7 +6,7 @@ ifndef VERSION
 endif
 
 release: require-version
-	@gh release create "$(VERSION)" --title "Release $(VERSION)"
+	@gh release create "$(VERSION)" --title "Release $(VERSION)" --generate-notes
 
 check:
 	@shellcheck -o all ./cli/main.sh
