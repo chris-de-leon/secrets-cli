@@ -17,7 +17,7 @@ This repository contains a Nix flake for the `Secrets CLI` - a personal dev tool
 
 The `Secrets CLI` offers three commands:
 
-1. `secrets push [-s <suffix>] -f <file-path>`: stores the contents of the file at `<file-path>` as a secret named `Dev/<git-repo-name>/[-suffix]`. This command must be called from somewhere within a git repo.
+1. `secrets push [-s <suffix>] -f <file-path>`: stores the contents of the file at `<file-path>` as a secret named `Dev/<git-repo-name>[-suffix]`. This command must be called from somewhere within a git repo.
 
 1. `secrets show [-s <suffix>]`: prints the contents of the secret named `/Dev/<git-repo-name>[-suffix]`. This command must be called from somewhere within a git repo.
 
@@ -44,7 +44,8 @@ To enter a Nix shell with the `secrets` executable available, you can run:
 ```sh
 nix develop github:chris-de-leon/secrets-cli
 
-secrets version
+# Once in the shell, you can run:
+# secrets version
 ```
 
 Or:
@@ -52,7 +53,8 @@ Or:
 ```sh
 nix develop https://github.com/chris-de-leon/secrets-cli/archive/refs/tags/v1.1.0.tar.gz
 
-secrets version
+# Once in the shell, you can run:
+# secrets version
 ```
 
 ### Nix Development Shell
