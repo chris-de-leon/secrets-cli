@@ -9,21 +9,8 @@ permissions:
   contents: write # grant permissions to create releases
 
 jobs:
-  check-script:
-    runs-on: ubuntu-22.04
-    steps:
-      - name: Checkout repository
-        uses: "actions/checkout@v4"
-
-      - name: Install Nix
-        uses: "cachix/install-nix-action@v17"
-
-      - name: Check Build
-        run: nix develop .#dev --command bash -c 'make check'
-
   release:
     runs-on: ubuntu-22.04
-    needs: check-script
     steps:
       - name: Checkout repository
         uses: "actions/checkout@v4"
@@ -35,4 +22,4 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          nix develop .#dev --command bash -c 'make release'
+          nix develop .#dev --command bash -c 'make check && make release'
