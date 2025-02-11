@@ -1,5 +1,11 @@
 # Secrets CLI
 
+<div>
+  <a href="https://github.com/chris-de-leon/secrets-cli/actions">
+  <img src="https://github.com/chris-de-leon/secrets-cli/actions/workflows/release.yml/badge.svg"/>
+ </a>
+</div>
+
 ## Overview
 
 This repository contains a Nix flake for the `Secrets CLI` - a personal dev tool which wraps the lastpass CLI. It offers several benefits over using the lastpass CLI directly:

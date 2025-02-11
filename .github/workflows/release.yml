@@ -32,4 +32,7 @@ jobs:
         uses: "cachix/install-nix-action@v17"
 
       - name: Release
-        run: nix develop .#dev --command bash -c 'make release'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          nix develop .#dev --command bash -c 'make release'
