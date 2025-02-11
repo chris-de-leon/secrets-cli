@@ -10,4 +10,4 @@ fmt:
 	@nix fmt
 
 env:
-	@nix shell nixpkgs#gh nixpkgs#bashInteractive --command bash
+	nix develop .#dev

@@ -27,6 +27,14 @@
               cli
             ];
           };
+
+          dev = pkgs.mkShell rec {
+            packages = [
+              pkgs.shellcheck
+              pkgs.nodejs
+              pkgs.gh
+            ];
+          };
         };
       }
     );
