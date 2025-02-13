@@ -27,6 +27,12 @@ The `Secrets CLI` offers three commands:
 
 ### Nix CLI
 
+You may need to log into the Lastpass before running commands:
+
+```sh
+nix shell nixpkgs#lastpass-cli --command lpass login --trust <your-email>
+```
+
 You can invoke the secrets CLI with the `nix run` command:
 
 ```sh
