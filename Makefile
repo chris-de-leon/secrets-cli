@@ -1,10 +1,6 @@
 MAKEFLAGS += --no-print-directory
 SHELL = /bin/bash -eo pipefail
 
-.PHONY: release
-release:
-	VERSION="$$(nix develop --command secrets version)" && gh release create "$$VERSION" --title "Release $$VERSION" --generate-notes
-
 .PHONY: check
 check: shellcheck
 check: nixcheck
