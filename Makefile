@@ -25,4 +25,4 @@ nixfmt:
 
 .PHONY: nixdev
 nixdev:
-	nix develop .#dev
+	nix develop '.#dev'
