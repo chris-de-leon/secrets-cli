@@ -146,7 +146,7 @@ cmd_push() {
 }
 
 cmd_version() {
-  echo "v1.1.6"
+  echo "v1.1.7"
 }
 
 op="${1:-}"
