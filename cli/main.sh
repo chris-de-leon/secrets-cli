@@ -35,7 +35,17 @@ util_get_scrt() {
   echo "${FLDR}/${1:-}"
 }
 
+util_require_login() {
+  local lpass_username=""
+  if ! lpass status --quiet 2>/dev/null; then
+    read -rp "info: please enter your LastPass username / email: " lpass_username
+    lpass login --trust "${lpass_username}"
+  fi
+}
+
 cmd_show() {
+  util_require_login
+
   local repo=""
   local sufx=""
   local name=""
@@ -67,6 +77,9 @@ cmd_show() {
 }
 
 cmd_push() {
+  # Make sure that the user is logged in
+  util_require_login
+
   # Define helper vars
   local ls_output=""
   local matches=""
@@ -162,7 +175,7 @@ show)
   ;;
 *)
   echo "Invalid option: ${op}"
-  echo "Usage: $0 {push|show}"
+  echo "Usage: $0 {version|push|show}"
   exit 1
   ;;
 esac
