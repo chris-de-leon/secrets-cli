@@ -146,7 +146,7 @@ cmd_push() {
 }
 
 cmd_version() {
-  echo "v1.1.7"
+  echo "v${SECRETS_CLI_VERSION:-UNKNOWN}"
 }
 
 op="${1:-}"
