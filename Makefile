@@ -15,7 +15,7 @@ shellcheck:
 nixcheck:
 	nix run '.#fmt' -- --check .
 
-.PHONY: lock
+.PHONY: nixlock
 nixlock:
 	nix flake lock
 
