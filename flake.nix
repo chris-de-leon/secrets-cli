@@ -1,18 +1,21 @@
 # https://github.com/NixOS/nixpkgs/commits/master
 {
   inputs = {
-    nixpkgs.url = "https://github.com/NixOS/nixpkgs/archive/4bbb73beb26f5152a87d3460e6bf76227841ae21.tar.gz";
+    nixpkgs.url = "https://github.com/NixOS/nixpkgs/archive/129bbbf4c7edd21cb4ae9607b73a30db7db29eba.tar.gz";
     utils.url = "github:numtide/flake-utils";
   };
 
-  outputs = { self, nixpkgs, utils }:
-    utils.lib.eachDefaultSystem (system:
-      let
-        pkgs = import nixpkgs { inherit system; };
-        cli = import ./cli { inherit pkgs; };
-      in
-      rec {
-        formatter = pkgs.nixpkgs-fmt;
+  outputs = {
+    self,
+    nixpkgs,
+    utils,
+  }:
+    utils.lib.eachDefaultSystem (
+      system: let
+        pkgs = import nixpkgs {inherit system;};
+        cli = import ./cli {inherit pkgs;};
+      in rec {
+        formatter = pkgs.alejandra;
 
         defaultPackage = cli;
 
@@ -30,14 +33,17 @@
 
           dev = pkgs.mkShell rec {
             packages = [
+              pkgs.bashInteractive
               pkgs.shellcheck
               pkgs.nodejs
               pkgs.gh
             ];
           };
         };
+
+        packages = {
+          fmt = pkgs.alejandra;
+        };
       }
     );
 }
-
-

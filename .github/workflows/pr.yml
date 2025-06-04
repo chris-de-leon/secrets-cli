@@ -1,4 +1,4 @@
-name: PR Checks
+name: PR Validation
 
 on:
   pull_request:
@@ -6,7 +6,7 @@ on:
       - master
 
 jobs:
-  check-script:
+  validate:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout repository
@@ -15,17 +15,8 @@ jobs:
       - name: Install Nix
         uses: "cachix/install-nix-action@v17"
 
-      - name: Verify Script
+      - name: Lint
         run: nix develop .#dev --command bash -c 'make check'
 
-  check-release:
-    runs-on: ubuntu-22.04
-    steps:
-      - name: Checkout repository
-        uses: "actions/checkout@v4"
-
-      - name: Install Nix
-        uses: "cachix/install-nix-action@v17"
-
-      - name: Verify Release
+      - name: Validate
         run: nix develop --command secrets version
