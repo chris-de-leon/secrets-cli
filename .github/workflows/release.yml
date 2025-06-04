@@ -30,17 +30,41 @@ jobs:
   release:
     name: Release
     needs: validate
-    if: contains(github.event.head_commit.modified, 'VERSION')
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
+      - name: Check Version
+        id: check_version
+        run: |
+          if [ "$(git rev-list --count HEAD)" -eq 1 ]; then
+            echo "info: first commit detected"
+            if [ -f "VERSION" ]; then
+              echo "info: VERSION file exists - proceeding with release"
+              echo "changed=true" >> "${GITHUB_OUTPUT}"
+            else
+              echo "info: VERSION file does not exist - skipping release"
+              echo "changed=false" >> "${GITHUB_OUTPUT}"
+            fi
+          else
+            git fetch --depth=2 origin ${{ github.ref }}
+            if git diff --name-only HEAD^ HEAD | grep -q '^VERSION$'; then
+              echo "info: detected VERSION file change"
+              echo "changed=true" >> "${GITHUB_OUTPUT}"
+            else
+              echo "info: VERSION file has not changed"
+              echo "changed=false" >> "${GITHUB_OUTPUT}"
+            fi
+          fi
+
       - name: Get Version
+        if: steps.check_version.outputs.changed == 'true'
         id: get_version
         run: VERSION="$(cat VERSION)" && echo "version=${VERSION}" >> "${GITHUB_OUTPUT}"
 
       - name: Check Release
+        if: steps.check_version.outputs.changed == 'true'
         id: check_release
         run: |
           TAG="v${{ steps.get_version.outputs.version }}"
@@ -53,6 +77,7 @@ jobs:
           fi
 
       - name: Release
+        if: steps.check_version.outputs.changed == 'true'
         uses: softprops/action-gh-release@v2
         with:
           name: "Release v${{ steps.get_version.outputs.version }}"
