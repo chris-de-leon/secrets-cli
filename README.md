@@ -6,6 +6,10 @@
  </a>
 </div>
 
+## Archive Notice
+
+I no longer use LastPass as my secrets manager, so I have decided to discontinue development / maintenance on this tool. Instead, I migrated to Bitwarden since it is free, open source, and has much better developer tooling than LastPass. Plus, all the features that I added to the `secrets-cli` are already covered by either the Bitwarden password manager CLI or Bitwarden secrets manager CLI.
+
 ## Overview
 
 This repository contains a Nix flake for the `Secrets CLI` - a personal dev tool which wraps the lastpass CLI. It offers several benefits over using the lastpass CLI directly:
